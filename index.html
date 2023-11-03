@@ -70,15 +70,11 @@
     <!-- You may include a footer like the original template if needed -->
   </footer>
   <script type="text/javascript">
-    var specVis1 = "OlympicMap.vl.json";
+    var specVis1 = "jsondata.json";
     vegaEmbed('#vis1', specVis1, { "actions": false }).then(function (result) { }).catch(console.error);
 
-    var specVis2 = "OlympicInteractive.vl.json";
+    var specVis2 = "winterdata.json";
     vegaEmbed('#vis2', specVis2, { "actions": false }).then(function (result) { }).catch(console.error);
 
-    var specVis3 = "OlympicMovement.vl.json";
-    vegaEmbed('#vis3', specVis3, { "actions": false }).then(function (result) { }).catch(console.error);
-    
-    var specVis4 = "OlympicLongBar.vl.json";
-    vegaEmbed('#vis4', specVis4, { "actions": false }).then(function (result) { }).catch(console.error);
+
   </script>
