@@ -1,0 +1,89 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {"text": "Winter Olympics","fontSize":22},
+  "width": "container",
+  "height": 300,
+  "projection": {"type": "equalEarth"},
+  "layer": [
+    {
+      "data": {"sphere": true},
+      "mark": {"type": "geoshape", "fill": "aliceblue"}
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/hoT-nomaD/FIT3179-2022/main/DV2/World.topojson",
+        "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+      },
+      "transform": [
+        {
+          "lookup": "properties.BRK_NAME",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/hoT-nomaD/FIT3179-2022/main/DV2/olympics_medals_country_wise.csv"
+            },
+            "key": "countries ",
+            "fields": [
+              "summer_participations",
+              "summer_gold",
+              "summer_silver",
+              "summer_bronze",
+              "summer_total",
+              "winter_participations",
+              "winter_gold",
+              "winter_silver",
+              "winter_bronze",
+              "winter_total",
+              "total_participation",
+              "total_gold",
+              "total_silver",
+              "total_bronze",
+              "total_total"
+            ]
+          }
+        },
+        {
+          "calculate": "((datum.winter_total+0)/10)/((datum.winter_participations+0.1)/10)",
+          "as": "Winter Medals"
+        },
+        {"calculate": "datum.winter_total", "as": "Winter Total"},
+        {"calculate": "datum.winter_participations", "as": "Winter Parts"}
+      ],
+      "mark": {"type": "geoshape", "stroke": "gray"},
+      "encoding": {
+        "color": {
+          "field": "Winter Medals",
+          "type": "quantitative",
+          "scale": {"type": "linear", "scheme": "blues"},
+          "title": "Winter Medals per Participation"
+        },
+        "tooltip": [
+          {"field": "properties.NAME", "type": "nominal", "title": "Country"},
+          {
+            "field": "Winter Total",
+            "type": "quantitative",
+            "title": "Total Winter Medals"
+          },
+          {
+            "field": "Winter Parts",
+            "type": "quantitative",
+            "title": "Total Winter Participations"
+          },
+          {
+            "field": "Winter Medals",
+            "type": "quantitative",
+            "title": "Winter Medals per Participation",
+            "format": ".1f"
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/hoT-nomaD/FIT3179-2022/main/DV2/World.topojson",
+        "format": {"type": "topojson", "feature": "ne_110m_graticules_30"}
+      },
+      "mark": {"type": "geoshape", "fill": null, "stroke": "lightgray"}
+    }
+  ],
+  "config": {}
+}
